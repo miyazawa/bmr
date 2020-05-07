@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}{{ gettext('Manage') }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<ul>
+    <li><a class="action" href="{{ url_for('manage.importbookmark') }}">{{ gettext('Import') }}</a></li>
+    <li><a class="action" href="{{ url_for('manage.update') }}">{{ gettext('Update') }}</a></li>
+</ul>
+{% endblock %}

@@ -1,0 +1,9 @@
+
+$translations_dir = "./bmr/translations"
+pybabel extract -F babel.cfg -k lazy_gettext -o ${translations_dir}/messages.pot .
+pybabel init -i ${translations_dir}/messages.pot -d ${translations_dir}/ -l ja
+pybabel update -i ${translations_dir}/messages.pot -d ${translations_dir}
+
+((edit))
+
+pybabel compile -d ${translations_dir}

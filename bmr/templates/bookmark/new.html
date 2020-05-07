@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{ gettext('New Bookmark') }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="title">{{ gettext('Title') }}</label>
+    <input name="title" id="title" value="{{ request.form['title'] }}" required>
+    <label for="uri">{{ gettext('URL') }}</label>
+    <input name="uri" id="uri" value="{{ request.form['uri'] }}" required>
+    <label for="description">{{ gettext('Description') }}</label>
+    <input name="description" id="description" value="{{ request.form['description'] }}">
+    <label for="tags">{{ gettext('Tags') }}</label>
+    <input name="tags" id="tags" value="{{ request.form['tags'] }}">
+    <input type="submit" value="{{ gettext('Save') }}">
+  </form>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h2>{% block title %}Bookmarks{% endblock %}</h2>
+{% if g.user %}
+<a class="action" href="{{ url_for('bookmark.create') }}">{{ gettext('New') }}</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div>{{ pagination.info }}</div>
+<div>{{ pagination.links }}</div>
+
+<div class="container">
+  <!-- <div class="row">
+    <div class="col-lg-1"></div> -->
+
+  {% for bookmark in bookmarks %}
+
+  <div class="card border-primary mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        {% if bookmark.page.status == 1 %}
+        <img src="/static/images/{{ bookmark.page.uuid }}.png" class="card-img">
+        {% else %}
+        <img src="/static/images/noimage.png" class="card-img">
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a href="{{ bookmark.uri }}" target="_blank">{{ bookmark.title }}</a></h5>
+          <p class="card-text">{% for tag in bookmark.tag %}[<a href="/tag/{{ tag.tag.name }}">{{ tag.tag.name }}</a>]&nbsp;
+          {% endfor %}</p>
+          <p class="card-text">
+          {% if g.user.id == bookmark.user_id %}
+          <a class="edit" href="{{ url_for('bookmark.update', id=bookmark.id) }}">{{ gettext('Edit') }}</a>
+          {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+
+  <!-- </div> 
+</div> -->
+</div>
+{{ pagination.links }}
+{% endblock %}

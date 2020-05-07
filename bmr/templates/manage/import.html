@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}{{ gettext('Import') }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method=post enctype=multipart/form-data>
+    <input type=file name=file>
+    <input type=submit value=Upload>
+</form>
+
+
+{% if result %}
+<div>
+    <div>success: {{ result[0] }}, ng: {{ result[1] }}</div>
+</div>
+{% endif %}
+{% endblock %}
+

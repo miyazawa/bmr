@@ -1,0 +1,20 @@
+{% macro card(id, img, uri, title, editable, tags=[]) -%}
+<img src="/static/images/noimage.png" height="100">
+<a href="{{ uri }}" target="_blank">{{ title }}</a>
+<div class="card-subtitle text-muted">
+    <div class="tags">
+        {% for tag in tags %}
+        [<a href="/tag/{{ tag }}">{{ tag }}</a>]&nbsp;
+        {% endfor %}
+    </div>
+</div>
+{% if editable %}
+<a class="edit" href="{{ url_for('bookmark.update', id=bookmark.id) }}">{{ gettext('Edit') }}</a>
+{% endif %}
+{%- endmacro %}
+
+<div class="card border-primary mb-3">
+    <div class="card-body">
+        {{ card() }}
+    </div>
+</div>

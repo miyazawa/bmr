@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h2>{% block title %}{{ gettext('Tag') }}: {{ tag }}{% endblock %}</h2>
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    {% for bookmark in bookmarks %}
+
+    <div class="card  border-primary mb-3">
+        <!-- <img class="card-img-top" src="images/sample.png" alt="image"> -->
+        <h5 class="card-header"><a href="{{  bookmark.bookmark.uri }}" target="_blank">{{ bookmark.bookmark.title }}</a>
+        </h5>
+        <div class="card-body">
+            <h6 class="card-subtitle text-muted">
+                <div class="about">{{ bookmark.created_at }}</div>
+            </h6>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

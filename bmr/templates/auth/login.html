@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          {% block header %}
+          <h5 class="card-title text-center">{% block title %}{{ gettext('Log In')}}{% endblock %}</h5>
+          {% endblock %}
+
+          {% block content %}
+          <form class="form-signin" method="post">
+            <div class="form-label-group">
+              <label for="username">{{ gettext('Username') }}</label>
+              <input name="username" id="username" required>
+            </div>
+            <div class="form-label-group">
+              <label for="password">{{ gettext('Password') }}</label>
+              <input type="password" name="password" id="password" required>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+              {{ gettext('Log In') }}</button>
+          </form>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

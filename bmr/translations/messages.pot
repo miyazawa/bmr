@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-04 16:22+0900\n"
+"POT-Creation-Date: 2020-05-07 17:14+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: bmr/routes/auth.py:37
+#: bmr/routes/auth.py:27 bmr/routes/auth.py:29 bmr/templates/auth/login.html:15
+#: bmr/templates/auth/register.html:9
+msgid "Username"
+msgstr ""
+
+#: bmr/routes/auth.py:57
 msgid "Username is required."
 msgstr ""
 
-#: bmr/routes/auth.py:39
+#: bmr/routes/auth.py:59
 msgid "Password is required."
 msgstr ""
 
-#: bmr/routes/auth.py:66
+#: bmr/routes/auth.py:88
 msgid "Incorrect username or password."
 msgstr ""
 
-#: bmr/routes/bookmarks.py:43 bmr/routes/bookmarks.py:96
+#: bmr/routes/bookmarks.py:54 bmr/routes/bookmarks.py:107
 msgid "Title is required."
 msgstr ""
 
-#: bmr/routes/bookmarks.py:46
+#: bmr/routes/bookmarks.py:57
 msgid "Invalid URL."
 msgstr ""
 
 #: bmr/routes/manage.py:123
 msgid "No file part"
+msgstr ""
+
+#: bmr/templates/_cardhelpers.html:12 bmr/templates/bookmark/index.html:36
+#: bmr/templates/bookmark/update.html:4
+msgid "Edit"
 msgstr ""
 
 #: bmr/templates/base.html:22 bmr/templates/manage/index.html:4
@@ -68,10 +78,6 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: bmr/templates/auth/login.html:15 bmr/templates/auth/register.html:9
-msgid "Username"
-msgstr ""
-
 #: bmr/templates/auth/login.html:19 bmr/templates/auth/register.html:13
 msgid "Password"
 msgstr ""
@@ -82,10 +88,6 @@ msgstr ""
 
 #: bmr/templates/bookmark/index.html:6
 msgid "New"
-msgstr ""
-
-#: bmr/templates/bookmark/index.html:36 bmr/templates/bookmark/update.html:4
-msgid "Edit"
 msgstr ""
 
 #: bmr/templates/bookmark/new.html:4

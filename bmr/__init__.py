@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request
 from flask_cors import CORS
+from flask_wtf.csrf import CSRFProtect
 from flask_babel import Babel
 # from settings import settings
 
@@ -16,7 +17,10 @@ def create_app(config="settings.settings"):
         pass
 
     # enable cors
-    CORS(app)
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+    # enable csrf protection
+    CSRFProtect(app)
 
     # enable babel
     babel = Babel(app)
@@ -33,5 +37,11 @@ def create_app(config="settings.settings"):
     # cli
     from . import cli
     cli.init_app(app)
+
+    @app.after_request
+    def after(response):
+        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        return response
 
     return app

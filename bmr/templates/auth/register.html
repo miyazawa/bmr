@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">{{ gettext('Username') }}</label>
-    <input name="username" id="username" required>
-    <label for="email">{{ gettext('Email') }}</label>
-    <input name="email" id="email" required>
-    <label for="password">{{ gettext('Password') }}</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="{{ gettext('Register') }}">
+  {% from "_formhelpers.html" import render_field %}
+  <form method=post>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    {{ render_field(form.username) }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.confirm) }}
+    {{ render_field(form.accept_tos) }}
+    <button class="btn btn-primary" type="submit">{{ gettext('Register') }}</button>
   </form>
 {% endblock %}

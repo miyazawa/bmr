@@ -6,6 +6,7 @@
 
 {% block content %}
   <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <label for="title">{{ gettext('Title') }}</label>
     <input name="title" id="title" value="{{ request.form['title'] }}" required>
     <label for="uri">{{ gettext('URL') }}</label>

@@ -10,17 +10,13 @@
           {% endblock %}
 
           {% block content %}
-          <form class="form-signin" method="post">
-            <div class="form-label-group">
-              <label for="username">{{ gettext('Username') }}</label>
-              <input name="username" id="username" required>
-            </div>
-            <div class="form-label-group">
-              <label for="password">{{ gettext('Password') }}</label>
-              <input type="password" name="password" id="password" required>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
-              {{ gettext('Log In') }}</button>
+
+          {% from "_formhelpers.html" import render_field %}
+          <form method=post>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            {{ render_field(form.username) }}
+            {{ render_field(form.password) }}
+            <button class="btn btn-primary" type="submit">{{ gettext('Login') }}</button>
           </form>
           {% endblock %}
         </div>

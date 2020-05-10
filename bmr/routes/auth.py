@@ -1,13 +1,56 @@
+from datetime import timedelta
 import functools
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_babel import gettext
+from flask_babel import gettext, lazy_gettext
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from wtforms.csrf.session import SessionCSRF
 
 from ..models import db, User
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+
+class RegistrationForm(Form):
+    username = StringField(
+        label=lazy_gettext('Username'),
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=4, max=25),
+            validators.Regexp('^[A-Za-z0-9-_.]+$')
+        ])
+    email = StringField(
+        label=lazy_gettext('Email Address'),
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=6, max=35),
+            validators.Email()
+        ])
+    password = PasswordField(
+        label=lazy_gettext('New Password'),
+        validators=[
+            validators.DataRequired(),
+            validators.EqualTo('confirm', message=lazy_gettext('Passwords must match')),
+            validators.Regexp('^[a-zA-Z0-9!#$%&()*+,.:;=?@\[\]^_{}-]+$')
+        ])
+    confirm = PasswordField(label=lazy_gettext('Repeat Password'))
+    accept_tos = BooleanField(
+        label=lazy_gettext('I accept the TOS'),
+        validators=[validators.DataRequired()])
+
+
+class LoginForm(Form):
+    username = StringField(
+        label=lazy_gettext('Username'),
+        validators=[validators.Length(min=4, max=25)],
+        render_kw={"placeholder": lazy_gettext('Username')})
+    password = PasswordField(
+        label=lazy_gettext('Password'),
+        validators=[validators.DataRequired()],
+        render_kw={"placeholder": lazy_gettext('Password')})
 
 
 @auth_bp.before_app_request
@@ -23,11 +66,12 @@ def load_logged_in_user():
 
 @auth_bp.route('/register', methods=('GET', 'POST'))
 def register():
-    if request.method == 'POST':
+    form = RegistrationForm(request.form)
+
+    if request.method == 'POST' and form.validate():
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
-        # db = get_db()
         error = None
 
         conn = db.session()
@@ -38,7 +82,7 @@ def register():
         elif not password:
             error = gettext('Password is required.')
         elif len(user) != 0:
-            error = 'User {} is already registered.'.format(username)
+            error = gettext('User %(name)s is already registered.', name=username)
 
         if error is None:
             new_user = User(username=username, password=generate_password_hash(
@@ -49,15 +93,20 @@ def register():
 
         flash(error)
 
-    return render_template('auth/register.html')
+    return render_template('auth/register.html', form=form)
 
 
 @auth_bp.route('/login', methods=('GET', 'POST'))
 def login():
+    form = LoginForm(request.form)
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         error = None
+
+        if not username:
+            error = gettext('Username is required.')
 
         conn = db.session()
         user = conn.query(User).filter(User.username == username).first()
@@ -72,7 +121,7 @@ def login():
 
         flash(error)
 
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', form=form)
 
 
 @auth_bp.route('/logout')

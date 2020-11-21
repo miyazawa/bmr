@@ -6,8 +6,8 @@ from .api import api_bp
 
 
 def init_app(app):
-    app.register_blueprint(bookmark_bp)
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(manage_bp)
-    app.register_blueprint(tag_bp)
-    app.register_blueprint(api_bp)
+    app.register_blueprint(bookmark_bp, url_prefix=app.config["APPLICATION_ROOT"])
+    app.register_blueprint(auth_bp, url_prefix=app.config["APPLICATION_ROOT"])
+    app.register_blueprint(manage_bp, url_prefix=app.config["APPLICATION_ROOT"])
+    app.register_blueprint(tag_bp, url_prefix=app.config["APPLICATION_ROOT"])
+    app.register_blueprint(api_bp, url_prefix=app.config["APPLICATION_ROOT"])

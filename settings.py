@@ -17,6 +17,7 @@ class Config():
         'en': 'English',
         'ja': 'Japanese'
     }
+    APPLICATION_ROOT = "/bmr"
 
 
 class TestConfig():

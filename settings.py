@@ -18,6 +18,9 @@ class Config():
         'ja': 'Japanese'
     }
     APPLICATION_ROOT = "/bmr"
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = 'Lax'
 
 
 class TestConfig():
